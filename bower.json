@@ -1,0 +1,11 @@
+{
+  "name": "phaser-sandbox",
+  "description": "A starter game using Phaser",
+  "version": "0.0.0",
+  "homepage": "localhost:9090",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "phaser": "2.4.x"
+  }
+}
