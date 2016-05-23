@@ -1,4 +1,4 @@
-/// <reference path="../node_modules/phaser/typescript/phaser.d.ts"/>
+/// <reference path="./ref.d.ts"/>
 
 class PhaserSandbox {
     private static dimensions: any = { width: 800, height: 600 };

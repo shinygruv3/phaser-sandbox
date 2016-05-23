@@ -3,7 +3,7 @@ var jshint = require('gulp-jshint');
 var webserver = require('gulp-webserver');
 
 gulp.task('serve', function() {
-    gulp.src('app')
+    gulp.src('src')
         .pipe(webserver({
             livereload: true,
             directoryListing: false,
@@ -13,7 +13,7 @@ gulp.task('serve', function() {
 });
 
 gulp.task('lint', function() {
-    return gulp.src('./lib/*.js')
+    return gulp.src('./src/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });

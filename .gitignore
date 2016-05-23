@@ -5,3 +5,4 @@ tmp
 .idea
 bower_components/
 http-server/
+dist/
