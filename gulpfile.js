@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     debug = require('gulp-debug'),
     inject = require('gulp-inject'),
     tsc = require('gulp-typescript'),
+    gulpTypings = require("gulp-typings"),
     tslint = require('gulp-tslint'),
     sourcemaps = require('gulp-sourcemaps'),
     del = require('del'),
@@ -11,6 +12,10 @@ var gulp = require('gulp'),
     superstatic = require( 'superstatic' );
 
 var config = new Config();
+
+gulp.task("install",function(){
+    return gulp.src("./typings.json").pipe(gulpTypings());
+});
 
 /**
  * Lint all custom TypeScript files.
