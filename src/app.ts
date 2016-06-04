@@ -34,12 +34,11 @@ class PhaserSandbox {
         const maxWidth = PhaserSandbox.dimensions.width - this.runningMan.width;
         const maxHeight = PhaserSandbox.dimensions.height - this.runningMan.height;
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            if (this.runningMan.x <= 0) {
-                this.runningMan.x = 0;
+            if (this.runningMan.x <= this.runningMan.width) {
+                this.runningMan.x = this.runningMan.width;
             }
             this.runningMan.x -= 4;
-        }
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+        } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
             if (this.runningMan.x >= maxWidth) {
                 this.runningMan.x = maxWidth;
             }
@@ -51,8 +50,7 @@ class PhaserSandbox {
                 this.runningMan.y = 0;
             }
             this.runningMan.y -= 4;
-        }
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+        } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             if (this.runningMan.y >= maxHeight) {
                 this.runningMan.y = maxHeight;
             }
