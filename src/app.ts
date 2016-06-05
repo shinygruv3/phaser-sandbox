@@ -50,11 +50,17 @@ class PhaserSandbox {
         const maxWidth = PhaserSandbox.dimensions.width - this.runningMan.width / 2;
         const maxHeight = PhaserSandbox.dimensions.height - this.runningMan.height / 2;
         if (this.isDirectionKeyPressed(Direction.left)) {
+            if (this.runningMan.scale.x < 0) {
+                this.runningMan.scale.x = this.runningMan.scale.x * -1;
+            }
             if (this.runningMan.x <= this.runningMan.width / 2) {
                 this.runningMan.x = this.runningMan.width / 2;
             }
             this.runningMan.x -= 5;
         } else if (this.isDirectionKeyPressed(Direction.right)) {
+            if (this.runningMan.scale.x > 0) {
+                this.runningMan.scale.x = this.runningMan.scale.x * -1;
+            }
             if (this.runningMan.x >= maxWidth) {
                 this.runningMan.x = maxWidth;
             }
