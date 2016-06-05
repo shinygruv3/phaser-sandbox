@@ -40,25 +40,28 @@ class PhaserSandbox {
 
     public create = () => {
         this.runningMan = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, "bot");
-        this.runningMan.anchor.setTo(0.5, 0.5);
+        this.runningMan.anchor.setTo(.5,.5);
         this.runningMan.scale.setTo(2, 2);
         this.runningMan.animations.add("run");
-        this.runningMan.animations.play("run", 10, true);
+        //this.runningMan.animations.play("run", 10, true);
     };
 
     public update = () => {
         const maxWidth = PhaserSandbox.dimensions.width - this.runningMan.width / 2;
         const maxHeight = PhaserSandbox.dimensions.height - this.runningMan.height / 2;
+        let isDirectionKeyPressed = false;
         if (this.isDirectionKeyPressed(Direction.left)) {
             if (this.runningMan.x <= this.runningMan.width / 2) {
                 this.runningMan.x = this.runningMan.width / 2;
             }
             this.runningMan.x -= 5;
+            isDirectionKeyPressed = true;
         } else if (this.isDirectionKeyPressed(Direction.right)) {
             if (this.runningMan.x >= maxWidth) {
                 this.runningMan.x = maxWidth;
             }
             this.runningMan.x += 5;
+            isDirectionKeyPressed = true;
         }
 
         if (this.isDirectionKeyPressed(Direction.up)) {
@@ -66,11 +69,19 @@ class PhaserSandbox {
                 this.runningMan.y = this.runningMan.height / 2;
             }
             this.runningMan.y -= 5;
+            isDirectionKeyPressed = true;
         } else if (this.isDirectionKeyPressed(Direction.down)) {
             if (this.runningMan.y >= maxHeight) {
                 this.runningMan.y = maxHeight;
             }
             this.runningMan.y += 5;
+            isDirectionKeyPressed = true;
+        }
+
+        if (isDirectionKeyPressed === true) {
+            this.runningMan.animations.play("run", 10, true);
+        } else {
+            this.runningMan.animations.stop();
         }
     };
 
@@ -89,7 +100,6 @@ class PhaserSandbox {
         });
 
         return wasFound;
-
     };
 }
 
