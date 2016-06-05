@@ -7,3 +7,4 @@ bower_components/
 http-server/
 dist/
 typings/
+npm-debug.log

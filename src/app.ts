@@ -31,30 +31,30 @@ class PhaserSandbox {
     };
 
     public update = () => {
-        const maxWidth = PhaserSandbox.dimensions.width - this.runningMan.width;
-        const maxHeight = PhaserSandbox.dimensions.height - this.runningMan.height;
+        const maxWidth = PhaserSandbox.dimensions.width - this.runningMan.width/2;
+        const maxHeight = PhaserSandbox.dimensions.height - this.runningMan.height/2;
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            if (this.runningMan.x <= this.runningMan.width) {
-                this.runningMan.x = this.runningMan.width;
+            if (this.runningMan.x <= this.runningMan.width/2) {
+                this.runningMan.x = this.runningMan.width/2;
             }
-            this.runningMan.x -= 4;
+            this.runningMan.x -= 5;
         } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
             if (this.runningMan.x >= maxWidth) {
                 this.runningMan.x = maxWidth;
             }
-            this.runningMan.x += 4;
+            this.runningMan.x += 5;
         }
 
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            if (this.runningMan.y <= 0) {
-                this.runningMan.y = 0;
+            if (this.runningMan.y - this.runningMan.height/2 <= 0) {
+                this.runningMan.y = this.runningMan.height/2;
             }
-            this.runningMan.y -= 4;
+            this.runningMan.y -= 5;
         } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
             if (this.runningMan.y >= maxHeight) {
                 this.runningMan.y = maxHeight;
             }
-            this.runningMan.y += 4;
+            this.runningMan.y += 5;
         }
     };
 
