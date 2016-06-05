@@ -6,6 +6,14 @@ enum Direction {
     right
 }
 
+class SimpleRange {
+    constructor(public min:number, public max:number) {}
+}
+
+class SimpleBounds {
+    constructor(public x:SimpleRange, public y:SimpleRange) {}
+}
+
 interface DirectionToKeysMap {
     [direction: number]: number[];
 }
@@ -13,6 +21,7 @@ interface DirectionToKeysMap {
 class PhaserSandbox {
     private static dimensions: any = { width: 800, height: 600 };
     private game: Phaser.Game;
+    private bounds: SimpleBounds;
     private runningMan: Phaser.Sprite;
     private directionMap: DirectionToKeysMap;
 
@@ -40,22 +49,25 @@ class PhaserSandbox {
 
     public create = () => {
         this.runningMan = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, "bot");
-        this.runningMan.anchor.setTo(.5,.5);
+        this.runningMan.anchor.setTo(.5, .5);
         this.runningMan.scale.setTo(2, 2);
         this.runningMan.animations.add("run");
-        //this.runningMan.animations.play("run", 10, true);
+
+        const xRange = new SimpleRange(this.runningMan.width / 2,
+            PhaserSandbox.dimensions.width - this.runningMan.width / 2);
+        const yRange = new SimpleRange(this.runningMan.height / 2,
+            PhaserSandbox.dimensions.height - this.runningMan.height / 2);
+        this.bounds = new SimpleBounds(xRange, yRange);
     };
 
     public update = () => {
-        const maxWidth = PhaserSandbox.dimensions.width - this.runningMan.width / 2;
-        const maxHeight = PhaserSandbox.dimensions.height - this.runningMan.height / 2;
         let isDirectionKeyPressed = false;
         if (this.isDirectionKeyPressed(Direction.left)) {
             if (this.runningMan.scale.x < 0) {
                 this.runningMan.scale.x = this.runningMan.scale.x * -1;
             }
-            if (this.runningMan.x <= this.runningMan.width / 2) {
-                this.runningMan.x = this.runningMan.width / 2;
+            if (this.runningMan.x <= this.bounds.x.min) {
+                this.runningMan.x = this.bounds.x.min;
             }
             this.runningMan.x -= 5;
             isDirectionKeyPressed = true;
@@ -63,22 +75,22 @@ class PhaserSandbox {
             if (this.runningMan.scale.x > 0) {
                 this.runningMan.scale.x = this.runningMan.scale.x * -1;
             }
-            if (this.runningMan.x >= maxWidth) {
-                this.runningMan.x = maxWidth;
+            if (this.runningMan.x >= this.bounds.x.max) {
+                this.runningMan.x = this.bounds.x.max;
             }
             this.runningMan.x += 5;
             isDirectionKeyPressed = true;
         }
 
         if (this.isDirectionKeyPressed(Direction.up)) {
-            if (this.runningMan.y - this.runningMan.height / 2 <= 0) {
-                this.runningMan.y = this.runningMan.height / 2;
+            if (this.runningMan.y - this.bounds.y.min <= 0) {
+                this.runningMan.y = this.bounds.y.min;
             }
             this.runningMan.y -= 5;
             isDirectionKeyPressed = true;
         } else if (this.isDirectionKeyPressed(Direction.down)) {
-            if (this.runningMan.y >= maxHeight) {
-                this.runningMan.y = maxHeight;
+            if (this.runningMan.y >= this.bounds.y.max) {
+                this.runningMan.y = this.bounds.y.max;
             }
             this.runningMan.y += 5;
             isDirectionKeyPressed = true;
