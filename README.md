@@ -5,6 +5,5 @@
 Run the following commands to run the game
 
 - npm install
-- bower install
 - gulp install
 - gulp serve
